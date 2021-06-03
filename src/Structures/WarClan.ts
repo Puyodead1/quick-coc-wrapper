@@ -12,7 +12,7 @@ export default class WarClan {
   attacks?: number;
   stars: number;
   expEarned?: number;
-  members: ClanWarMember[] = [];
+  members: Map<string, ClanWarMember> = new Map();
 
   constructor(api: ClashAPI, data: APIWarClan) {
     Object.defineProperty(this, "api", {
@@ -31,7 +31,8 @@ export default class WarClan {
     this.expEarned = data.expEarned;
     if (data.members) {
       data.members.forEach((member) => {
-        this.members.push(new ClanWarMember(this.api, member));
+        const m = new ClanWarMember(this.api, member);
+        this.members.set(m.tag, m);
       });
     }
   }

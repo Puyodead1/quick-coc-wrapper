@@ -32,7 +32,7 @@ export default class Clan {
   labels: APILabel[] = [];
   requiredVersusTrophies: number;
   requiredTownhallLevel: number;
-  memberList: ClanMember[] = [];
+  memberList: Map<string, ClanMember> = new Map();
   warTies?: number;
   warLosses?: number;
   chatLanguage?: Language;
@@ -50,7 +50,8 @@ export default class Clan {
     }
     if (data.memberList) {
       data.memberList.forEach((member) => {
-        this.memberList.push(new ClanMember(this.api, member));
+        const m = new ClanMember(this.api, member);
+        this.memberList.set(m.tag, m);
       });
     }
     this.tag = data.tag;
@@ -95,6 +96,21 @@ export default class Clan {
           }
 
           resolve(warLog);
+        })
+        .catch(reject);
+    });
+  }
+
+  fetchMembers(): Promise<Map<string, ClanMember>> {
+    return new Promise((resolve, reject) => {
+      this.api
+        .get(ENDPOINTS.CLAN_MEMBERS(this.tag))
+        .then((apiClanMembers: any) => {
+          for (const member of apiClanMembers) {
+            const m = new ClanMember(this.api, member);
+            this.memberList.set(m.tag, m);
+          }
+          resolve(this.memberList);
         })
         .catch(reject);
     });
