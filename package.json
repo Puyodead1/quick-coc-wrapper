@@ -1,0 +1,28 @@
+{
+  "name": "quick-coc-wrapper",
+  "version": "1.0.0",
+  "description": "Simple API Wrapper for Clash of Clans",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "test": "npm run build && node dist\\tests\\index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Puyodead1/quick-coc-wrapper.git"
+  },
+  "author": "Puyodead1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Puyodead1/quick-coc-wrapper/issues"
+  },
+  "homepage": "https://github.com/Puyodead1/quick-coc-wrapper#readme",
+  "dependencies": {
+    "@types/centra": "^2.2.0",
+    "centra": "^2.4.2"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}
