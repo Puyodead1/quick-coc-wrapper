@@ -1,8 +1,8 @@
 import ClashAPI from "../ClashAPI";
-import { APIClanWarLogClan } from "../ClashInterface";
-import ClanWarLogClanMember from "./ClanWarLogClanMember";
+import { APIWarClan } from "../ClashInterface";
+import ClanWarMember from "./ClanWarMember";
 
-export default class ClanWarLogClan {
+export default class WarClan {
   private api!: ClashAPI;
   destructionPercentage: unknown;
   tag: string;
@@ -12,9 +12,9 @@ export default class ClanWarLogClan {
   attacks?: number;
   stars: number;
   expEarned?: number;
-  members: ClanWarLogClanMember[] = [];
+  members: ClanWarMember[] = [];
 
-  constructor(api: ClashAPI, data: APIClanWarLogClan) {
+  constructor(api: ClashAPI, data: APIWarClan) {
     Object.defineProperty(this, "api", {
       enumerable: false,
       writable: false,
@@ -31,7 +31,7 @@ export default class ClanWarLogClan {
     this.expEarned = data.expEarned;
     if (data.members) {
       data.members.forEach((member) => {
-        this.members.push(new ClanWarLogClanMember(this.api, member));
+        this.members.push(new ClanWarMember(this.api, member));
       });
     }
   }

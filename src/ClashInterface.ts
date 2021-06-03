@@ -19,16 +19,18 @@ export interface ErrorResponse {
   detail: unknown;
 }
 
-export interface APIClanMember {
-  league: {
-    name: unknown;
-    id: number;
-    iconUrls: {
-      small: string;
-      tiny: string;
-      medium: string;
-    };
+export interface APILeague {
+  name: string;
+  id: number;
+  iconUrls: {
+    small: string;
+    tiny: string;
+    medium: string;
   };
+}
+
+export interface APIClanMember {
+  league: APILeague;
   tag: string;
   name: string;
   role: string;
@@ -41,7 +43,7 @@ export interface APIClanMember {
   versusTrophies: number;
 }
 
-export interface APIClanLabel {
+export interface APILabel {
   name: string;
   id: number;
   iconUrls: {
@@ -50,7 +52,7 @@ export interface APIClanLabel {
   };
 }
 
-export interface APIClanLocation {
+export interface APILocation {
   localizedName: string;
   id: number;
   name: string;
@@ -58,11 +60,19 @@ export interface APIClanLocation {
   countryCode: string;
 }
 
+export interface APIWarLeague {
+  name: string;
+  id: number;
+}
+
+export interface APILanguage {
+  name: string;
+  id: number;
+  languageCode: string;
+}
+
 export interface APIClan {
-  warLeague: {
-    name: string;
-    id: number;
-  };
+  warLeague?: APIWarLeague;
   memberList?: APIClanMember[];
   tag: string;
   clanVersusPoints: number;
@@ -75,16 +85,12 @@ export interface APIClan {
   warTies?: number;
   warLosses?: number;
   clanPoints: number;
-  chatLanguage?: {
-    name: string;
-    id: number;
-    languageCode: string;
-  };
+  chatLanguage?: APILanguage;
   warFrequency: string;
   clanLevel: number;
-  labels: APIClanLabel[];
+  labels: APILabel[];
   name: string;
-  location?: APIClanLocation;
+  location?: APILocation;
   type: string;
   members: number;
   description?: string;
@@ -95,7 +101,7 @@ export interface APIClan {
   };
 }
 
-export interface APIClanWarLogClanMemberBestOpponentAttack {
+export interface APIClanWarAttack {
   order: number;
   attackerTag: string;
   defenderTag: string;
@@ -104,26 +110,17 @@ export interface APIClanWarLogClanMemberBestOpponentAttack {
   duration: number;
 }
 
-export interface APIClanWarLogClanMemberAttack {
-  order: number;
-  attackerTag: string;
-  defenderTag: string;
-  stars: number;
-  destructionPercentage: number;
-  duration: number;
-}
-
-export interface APIClanWarLogClanMember {
+export interface APIClanWarMember {
   tag: string;
   name: string;
   mapPosition: number;
   townhallLevel: number;
   opponentAttacks: number;
-  bestOpponentAttack: APIClanWarLogClanMemberBestOpponentAttack;
-  attacks: APIClanWarLogClanMemberAttack[];
+  bestOpponentAttack: APIClanWarAttack;
+  attacks: APIClanWarAttack[];
 }
 
-export interface APIClanWarLogClan {
+export interface APIWarClan {
   destructionPercentage: number;
   tag: string;
   name: string;
@@ -136,13 +133,23 @@ export interface APIClanWarLogClan {
   attacks?: number;
   stars: number;
   expEarned?: number;
-  members: APIClanWarLogClanMember[];
+  members: APIClanWarMember[];
 }
 
-export interface APIClanWarLog {
-  clan: APIClanWarLogClan;
+export interface APIClanWarLogEntry {
+  clan: APIWarClan;
   teamSize: number;
-  opponent: APIClanWarLogClan;
+  opponent: APIWarClan;
   endTime: string;
   result: "win" | "loose";
+}
+
+export interface APIClanWar {
+  clan: APIWarClan;
+  teamSize: number;
+  opponent: APIWarClan;
+  startTime: string;
+  state: string;
+  endTime: string;
+  preparationStartTime: string;
 }

@@ -1,18 +1,15 @@
 import ClashAPI from "../ClashAPI";
 import {
   APIClan,
-  APIClanLabel,
-  APIClanLocation,
+  APILabel,
+  APILocation,
   APIClanMember,
 } from "../ClashInterface";
+import League from "./League";
 
 export default class ClanMember {
   private api!: ClashAPI;
-  league: {
-    name: unknown;
-    id: number;
-    iconUrls: { small: string; tiny: string; medium: string };
-  };
+  league?: League;
   tag: string;
   name: string;
   role: string;
@@ -31,7 +28,9 @@ export default class ClanMember {
       value: api,
     });
 
-    this.league = data.league;
+    if (data.league) {
+      this.league = new League(this.api, data.league);
+    }
     this.tag = data.tag;
     this.name = data.name;
     this.role = data.role;

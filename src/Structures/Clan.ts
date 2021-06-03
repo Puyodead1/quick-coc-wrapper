@@ -1,20 +1,23 @@
 import ClashAPI from "../ClashAPI";
 import {
   APIClan,
-  APIClanLabel,
-  APIClanLocation,
+  APILabel,
+  APILocation,
   APIClanMember,
 } from "../ClashInterface";
 import { ENDPOINTS } from "../Constants";
 import ClanMember from "./ClanMember";
-import ClanWarLog from "./ClanWarLog";
+import ClanWarLogEntry from "./ClanWarLogEntry";
+import Language from "./Language";
+import Location from "./Location";
+import WarLeague from "./WarLeague";
 
 export default class Clan {
   private api!: ClashAPI;
   tag: string;
   name: string;
   type: string;
-  location?: APIClanLocation;
+  location?: Location;
   badgeUrls: { small: string; large: string; medium: string };
   clanLevel: number;
   clanPoints: number;
@@ -24,15 +27,15 @@ export default class Clan {
   warWinStreak: number;
   warWins: number;
   isWarLogPublic: boolean;
-  warLeague: { name: string; id: number };
+  warLeague?: WarLeague;
   members: number;
-  labels: APIClanLabel[] = [];
+  labels: APILabel[] = [];
   requiredVersusTrophies: number;
   requiredTownhallLevel: number;
-  memberList: APIClanMember[] = [];
+  memberList: ClanMember[] = [];
   warTies?: number;
   warLosses?: number;
-  chatLanguage?: { name: string; id: number; languageCode: string };
+  chatLanguage?: Language;
   description?: string;
 
   constructor(api: ClashAPI, data: APIClan) {
@@ -42,7 +45,9 @@ export default class Clan {
       value: api,
     });
 
-    this.warLeague = data.warLeague;
+    if (data.warLeague) {
+      this.warLeague = new WarLeague(this.api, data.warLeague);
+    }
     if (data.memberList) {
       data.memberList.forEach((member) => {
         this.memberList.push(new ClanMember(this.api, member));
@@ -59,12 +64,16 @@ export default class Clan {
     this.warTies = data.warTies;
     this.warLosses = data.warLosses;
     this.clanPoints = data.clanPoints;
-    this.chatLanguage = data.chatLanguage;
+    if (data.chatLanguage) {
+      this.chatLanguage = new Language(this.api, data.chatLanguage);
+    }
     this.warFrequency = data.warFrequency;
     this.clanLevel = data.clanLevel;
     this.labels = data.labels;
     this.name = data.name;
-    this.location = data.location;
+    if (data.location) {
+      this.location = new Location(this.api, data.location);
+    }
     this.type = data.type;
     this.members = data.members;
     this.description = data.description;
@@ -73,16 +82,16 @@ export default class Clan {
 
   /**
    * Retrieve clan's clan war log
-   * @returns {ClanWarLog}
+   * @returns {ClanWarLogEntry}
    */
-  fetchWarLog(): Promise<ClanWarLog[]> {
+  fetchWarLog(): Promise<ClanWarLogEntry[]> {
     return new Promise((resolve, reject) => {
       this.api
         .get(ENDPOINTS.CLAN_WARLOG(this.tag))
         .then((apiWarLog: any) => {
-          const warLog: ClanWarLog[] = [];
+          const warLog: ClanWarLogEntry[] = [];
           for (const log of apiWarLog.items) {
-            warLog.push(new ClanWarLog(this.api, log));
+            warLog.push(new ClanWarLogEntry(this.api, log));
           }
 
           resolve(warLog);
