@@ -6,9 +6,9 @@ export default class ClanWar {
   clan: APIWarClan;
   teamSize: number;
   opponent: APIWarClan;
-  startTime: string;
+  startTime: Date | string;
   state: string;
-  endTime: string;
+  endTime: Date | string;
   preparationStartTime: string;
 
   constructor(api: ClashAPI, data: APIClanWar) {
@@ -22,8 +22,16 @@ export default class ClanWar {
     this.teamSize = data.teamSize;
     this.opponent = data.opponent;
     this.startTime = data.startTime;
+    if (data.startTime) {
+      const converted = isoShortToFull(data.startTime);
+      if (converted) this.startTime = new Date(converted);
+    }
     this.state = data.state;
     this.endTime = data.endTime;
+    if (data.endTime) {
+      const converted = isoShortToFull(data.endTime);
+      if (converted) this.endTime = new Date(converted);
+    }
     this.preparationStartTime = data.preparationStartTime;
   }
 }
