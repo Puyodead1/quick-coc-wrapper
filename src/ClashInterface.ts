@@ -141,7 +141,7 @@ export interface APIClanWarLogEntry {
   teamSize: number;
   opponent: APIWarClan;
   endTime: string;
-  result: "win" | "loose";
+  result: string;
 }
 
 export interface APIClanWar {
