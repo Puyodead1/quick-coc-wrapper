@@ -5,7 +5,9 @@ import {
   APIClanLocation,
   APIClanMember,
 } from "../ClashInterface";
+import { ENDPOINTS } from "../Constants";
 import ClanMember from "./ClanMember";
+import ClanWarLog from "./ClanWarLog";
 
 export default class Clan {
   private api!: ClashAPI;
@@ -67,5 +69,25 @@ export default class Clan {
     this.members = data.members;
     this.description = data.description;
     this.badgeUrls = data.badgeUrls;
+  }
+
+  /**
+   * Retrieve clan's clan war log
+   * @returns {ClanWarLog}
+   */
+  fetchWarLog(): Promise<ClanWarLog[]> {
+    return new Promise((resolve, reject) => {
+      this.api
+        .get(ENDPOINTS.CLAN_WARLOG(this.tag))
+        .then((apiWarLog: any) => {
+          const warLog: ClanWarLog[] = [];
+          for (const log of apiWarLog.items) {
+            warLog.push(new ClanWarLog(this.api, log));
+          }
+
+          resolve(warLog);
+        })
+        .catch(reject);
+    });
   }
 }

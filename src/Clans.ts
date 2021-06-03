@@ -40,7 +40,7 @@ export default class {
    * @param clanTag Tag of the clan
    * @returns {Clan}
    */
-  clan(clanTag: string) {
+  clan(clanTag: string): Promise<Clan> {
     return new Promise((resolve, reject) => {
       this.api
         .get(ENDPOINTS.CLAN(clanTag))

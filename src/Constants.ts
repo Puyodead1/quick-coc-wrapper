@@ -88,6 +88,6 @@ export const ENDPOINTS = {
    * @param clanTag Tag of the clan
    * @returns
    */
-  CLAN: (clanTag: string) => `/clans/${clanTag.replace("#", "%23")}`,
+  CLAN: (clanTag: string) => `/clans/${clanTag}`,
   CLAN_MEMBERS: (clanTag: string) => `/clans/${clanTag}/members`,
 };

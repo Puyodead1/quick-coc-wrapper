@@ -94,3 +94,55 @@ export interface APIClan {
     medium: string;
   };
 }
+
+export interface APIClanWarLogClanMemberBestOpponentAttack {
+  order: number;
+  attackerTag: string;
+  defenderTag: string;
+  stars: number;
+  destructionPercentage: number;
+  duration: number;
+}
+
+export interface APIClanWarLogClanMemberAttack {
+  order: number;
+  attackerTag: string;
+  defenderTag: string;
+  stars: number;
+  destructionPercentage: number;
+  duration: number;
+}
+
+export interface APIClanWarLogClanMember {
+  tag: string;
+  name: string;
+  mapPosition: number;
+  townhallLevel: number;
+  opponentAttacks: number;
+  bestOpponentAttack: APIClanWarLogClanMemberBestOpponentAttack;
+  attacks: APIClanWarLogClanMemberAttack[];
+}
+
+export interface APIClanWarLogClan {
+  destructionPercentage: number;
+  tag: string;
+  name: string;
+  badgeUrls: {
+    small: string;
+    large: string;
+    medium: string;
+  };
+  clanLevel: number;
+  attacks?: number;
+  stars: number;
+  expEarned?: number;
+  members: APIClanWarLogClanMember[];
+}
+
+export interface APIClanWarLog {
+  clan: APIClanWarLogClan;
+  teamSize: number;
+  opponent: APIClanWarLogClan;
+  endTime: string;
+  result: "win" | "loose";
+}

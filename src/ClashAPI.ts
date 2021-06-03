@@ -12,7 +12,7 @@ export default class {
 
   get(endpoint: string) {
     return new Promise((resolve, reject) => {
-      const req = c(`${BASE_URL}${endpoint}`, "GET")
+      const req = c(`${BASE_URL}${endpoint}`.replace("#", "%23"), "GET")
         .header("Accept", "application/json")
         .header("Authorization", `Bearer ${this.token}`)
         .send();
