@@ -1,12 +1,9 @@
 import ClashAPI from "../ClashAPI";
-import {
-  APIClan,
-  APILabel,
-  APILocation,
-  APIClanMember,
-} from "../ClashInterface";
+import { APIClan, APILabel } from "../ClashInterface";
 import { ENDPOINTS } from "../Constants";
 import ClanMember from "./ClanMember";
+import ClanWar from "./ClanWar";
+import ClanWarLeagueGroup from "./ClanWarLeagueGroup";
 import ClanWarLogEntry from "./ClanWarLogEntry";
 import Language from "./Language";
 import Location from "./Location";
@@ -33,10 +30,10 @@ export default class Clan {
   requiredVersusTrophies: number;
   requiredTownhallLevel: number;
   memberList: Map<string, ClanMember> = new Map();
-  warTies?: number;
-  warLosses?: number;
+  warTies?: number | undefined;
+  warLosses?: number | undefined;
   chatLanguage?: Language;
-  description?: string;
+  description?: string | undefined;
 
   constructor(api: ClashAPI, data: APIClan) {
     Object.defineProperty(this, "api", {
@@ -101,6 +98,10 @@ export default class Clan {
     });
   }
 
+  /**
+   * List clan members.
+   * @returns {ClanMember[]}
+   */
   fetchMembers(): Promise<Map<string, ClanMember>> {
     return new Promise((resolve, reject) => {
       this.api
@@ -111,6 +112,36 @@ export default class Clan {
             this.memberList.set(m.tag, m);
           }
           resolve(this.memberList);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Retrieve information about clan's current clan war
+   * @returns {ClanWar}
+   */
+  fetchCurrentWar(): Promise<ClanWar> {
+    return new Promise((resolve, reject) => {
+      this.api
+        .get(ENDPOINTS.CLAN_CURRENT_WAR(this.tag))
+        .then((apiWar: any) => {
+          resolve(new ClanWar(this.api, apiWar));
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Retrieve information about clan's current clan war league group
+   * @returns {ClanWarLeagueGroup}
+   */
+  fetchCurrentWarLeagueGroup() {
+    return new Promise((resolve, reject) => {
+      this.api
+        .get(ENDPOINTS.CLAN_CURRENT_WARLEAGUE(this.tag))
+        .then((apiWarLeagueGroup: any) => {
+          resolve(new ClanWarLeagueGroup(this.api, apiWarLeagueGroup));
         })
         .catch(reject);
     });

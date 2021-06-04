@@ -10,6 +10,11 @@ export default class {
     this.clans = new Clans(this);
   }
 
+  /**
+   * internal method
+   * @param endpoint endpoint
+   * @returns
+   */
   get(endpoint: string) {
     return new Promise((resolve, reject) => {
       const req = c(`${BASE_URL}${endpoint}`.replace("#", "%23"), "GET")
@@ -28,9 +33,17 @@ export default class {
             res.statusCode === 500 ||
             res.statusCode === 503
           ) {
-            reject(await res.json());
+            reject({
+              error: true,
+              code: res.statusCode,
+              message: await res.json(),
+            });
           } else {
-            reject(await res.text());
+            reject({
+              error: true,
+              code: res.statusCode,
+              message: await res.text(),
+            });
           }
         })
         .catch(reject);

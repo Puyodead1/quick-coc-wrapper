@@ -19,7 +19,7 @@ export default class {
    * @param searchOptions clan search options, at least one option is required
    * @returns {Clan[]}
    */
-  clans(searchOptions: ClanSearchOptions): Promise<Clan[]> {
+  searchClans(searchOptions: ClanSearchOptions): Promise<Clan[]> {
     return new Promise((resolve, reject) => {
       this.api
         .get(ENDPOINTS.CLANS(searchOptions))
@@ -40,7 +40,7 @@ export default class {
    * @param clanTag Tag of the clan
    * @returns {Clan}
    */
-  clan(clanTag: string): Promise<Clan> {
+  getClan(clanTag: string): Promise<Clan> {
     return new Promise((resolve, reject) => {
       this.api
         .get(ENDPOINTS.CLAN(clanTag))

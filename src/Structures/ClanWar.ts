@@ -4,12 +4,12 @@ import { APIClanWar, APIWarClan } from "../ClashInterface";
 export default class ClanWar {
   private api!: ClashAPI;
   clan: APIWarClan;
-  teamSize: number;
+  teamSize?: number | undefined;
   opponent: APIWarClan;
-  startTime: Date | string;
+  startTime?: Date | string | undefined;
   state: string;
-  endTime: Date | string;
-  preparationStartTime: string;
+  endTime?: Date | string | undefined;
+  preparationStartTime?: string | undefined;
 
   constructor(api: ClashAPI, data: APIClanWar) {
     Object.defineProperty(this, "api", {

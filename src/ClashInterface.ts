@@ -144,12 +144,42 @@ export interface APIClanWarLogEntry {
   result: string;
 }
 
+export interface APIClanWarLeagueRound {
+  warTags: string[];
+}
+
 export interface APIClanWar {
   clan: APIWarClan;
-  teamSize: number;
+  teamSize?: number;
   opponent: APIWarClan;
-  startTime: string;
+  startTime?: string;
   state: string;
-  endTime: string;
-  preparationStartTime: string;
+  endTime?: string;
+  preparationStartTime?: string;
+}
+
+export interface APIClanWarLeagueClanMember {
+  tag: string;
+  townHallLeveL: number;
+  name: string;
+}
+
+export interface APIClanWarLeagueClan {
+  tag: string;
+  clanLevel: number;
+  name: string;
+  members: APIClanWarLeagueClanMember[];
+  badgeUrls: {
+    small: string;
+    large: string;
+    medium: string;
+  };
+}
+
+export interface APIClanWarLeagueGroup {
+  tag?: string;
+  state: string;
+  season: string;
+  clans: APIClanWarLeagueClan[];
+  rounds: APIClanWarLeagueRound[];
 }
