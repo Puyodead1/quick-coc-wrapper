@@ -183,3 +183,76 @@ export interface APIClanWarLeagueGroup {
   clans: APIClanWarLeagueClan[];
   rounds: APIClanWarLeagueRound[];
 }
+
+export interface APIPlayerClan {
+  tag: string;
+  clanLevel: number;
+  name: string;
+  badgeUrls: {
+    small: string;
+    large: string;
+    medium: string;
+  };
+}
+
+export interface APILegendLeagueTorunamentSeasonResult {
+  trophies: number;
+  id: string;
+  rank: number;
+}
+
+export interface APIPlayerLegendStatistics {
+  previousVersusSeason: APILegendLeagueTorunamentSeasonResult;
+  bestVersusSeason: APILegendLeagueTorunamentSeasonResult;
+  legendTrophies: number;
+  currentSeason: APILegendLeagueTorunamentSeasonResult;
+  previousSeason: APILegendLeagueTorunamentSeasonResult;
+  bestSeason: APILegendLeagueTorunamentSeasonResult;
+}
+
+export interface APIPlayerItemLevel {
+  level: number;
+  name: unknown;
+  maxLevel: number;
+  village: string;
+  superTroopIsActive: boolean;
+}
+
+export interface APIPlayerAchievementProgress {
+  stars: number;
+  value: number;
+  name: unknown;
+  target: number;
+  info: unknown;
+  completionInfo: unknown;
+  village: string;
+}
+
+export interface APIPlayer {
+  league: APILeague;
+  clan: APIPlayerClan;
+  role: string;
+  attackWins: number;
+  defenseWins: number;
+  townHallLevel: number;
+  townHallWeaponLevel: number;
+  versusBattleWins: number;
+  legendStatistics: APIPlayerLegendStatistics;
+  troops: APIPlayerItemLevel[];
+  heroes: APIPlayerItemLevel[];
+  spells: APIPlayerItemLevel[];
+  labels: APILabel[];
+  tag: string;
+  name: string;
+  expLevel: number;
+  trophies: number;
+  bestTrophies: number;
+  donations: number;
+  donationsReceived: number;
+  builderHallLevel: number;
+  versusTrophies: number;
+  bestVersusTrophies: number;
+  warStars: number;
+  achievements: APIPlayerAchievementProgress[];
+  versusBattleWinCount: number;
+}
