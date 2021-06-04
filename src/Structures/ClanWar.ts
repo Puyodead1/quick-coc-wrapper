@@ -1,5 +1,6 @@
 import ClashAPI from "../ClashAPI";
 import { APIClanWar, APIWarClan } from "../ClashInterface";
+import { isoShortToFull } from "../Utils";
 
 export default class ClanWar {
   private api!: ClashAPI;

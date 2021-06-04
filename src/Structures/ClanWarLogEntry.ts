@@ -1,13 +1,14 @@
 import ClashAPI from "../ClashAPI";
 import { APIClanWarLogEntry } from "../ClashInterface";
 import WarClan from "./WarClan";
+import { isoShortToFull } from "../Utils";
 
 export default class ClanWarLogEntry {
   private api!: ClashAPI;
   clan: WarClan;
   teamSize: number;
   opponent: WarClan;
-  endTime: string;
+  endTime?: Date | string;
   result: string;
 
   constructor(api: ClashAPI, data: APIClanWarLogEntry) {
@@ -20,7 +21,12 @@ export default class ClanWarLogEntry {
     this.clan = new WarClan(this.api, data.clan);
     this.teamSize = data.teamSize;
     this.opponent = new WarClan(this.api, data.opponent);
-    this.endTime = data.endTime;
+    if (data.endTime) {
+      const converted = isoShortToFull(data.endTime);
+      if (converted) {
+        this.endTime = new Date(converted);
+      } else this.endTime = data.endTime;
+    }
     this.result = data.result;
   }
 }

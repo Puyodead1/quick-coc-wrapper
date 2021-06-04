@@ -1,8 +1,5 @@
 import ClashAPI from "../ClashAPI";
-import {
-  APIClanWarLeagueClan,
-  APIClanWarLeagueClanMember,
-} from "../ClashInterface";
+import { APIClanWarLeagueClan } from "../ClashInterface";
 import ClanWarLeagueClanMember from "./ClanWarLeagueClanMember";
 
 export default class ClanWarLeagueClan {

@@ -1,4 +1,4 @@
-function isoShortToFull(timestamp: string) {
+export function isoShortToFull(timestamp: string) {
   const regex = new RegExp(
     /^([0-9]{4,4})([0-9]{2,2})([0-9]{2,2})T([0-9]{2,2})([0-9]{2,2})([0-9]{2,2}).([0-9]{1,3})Z$/
   );
