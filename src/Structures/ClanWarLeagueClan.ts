@@ -10,7 +10,7 @@ export default class ClanWarLeagueClan {
   tag: string;
   clanLevel: number;
   name: string;
-  members: ClanWarLeagueClanMember[] = [];
+  members: Map<string, ClanWarLeagueClanMember> = new Map();
   badgeUrls: { small: string; large: string; medium: string };
 
   constructor(api: ClashAPI, data: APIClanWarLeagueClan) {
@@ -25,7 +25,8 @@ export default class ClanWarLeagueClan {
     this.name = data.name;
     if (data.members) {
       data.members.forEach((member) => {
-        this.members.push(new ClanWarLeagueClanMember(this.api, member));
+        const m = new ClanWarLeagueClanMember(this.api, member);
+        this.members.set(m.tag, m);
       });
     }
     this.badgeUrls = data.badgeUrls;
