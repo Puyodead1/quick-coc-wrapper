@@ -2,8 +2,6 @@ import ClashAPI from "../ClashAPI";
 import {
   APILabel,
   APIPlayer,
-  APIPlayerAchievementProgress,
-  APIPlayerItemLevel,
   APIPlayerVerifyTokenResponse,
 } from "../ClashInterface";
 import { ENDPOINTS } from "../Constants";
