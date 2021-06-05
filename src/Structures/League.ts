@@ -43,4 +43,14 @@ export default class League {
         .catch(reject);
     });
   }
+
+  fetchSeason() {
+    return new Promise((resolve, reject) => {
+      this.api
+        .get(ENDPOINTS.LEAGUE_SEASONS(this.id.toString()))
+        .then((apiLeagueSeasons: any) => {
+          //
+        });
+    });
+  }
 }

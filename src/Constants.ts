@@ -144,4 +144,24 @@ export const ENDPOINTS = {
     if (before) url.searchParams.append("before", before);
     return `/leagues${url.search}`;
   },
+  /**
+   * List war leagues
+   * @param limit
+   * @param after
+   * @param before
+   * @returns string
+   */
+  WARLEAGUES: (limit?: number, after?: string, before?: string) => {
+    const url = new URL(`/warleagues`, BASE_URL);
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/warleagues${url.search}`;
+  }
+  /**
+   * Get war league information
+   * @param leagueId Identifier of the league
+   * @returns string
+   */,
+  WARLEAGUE: (leagueId: string) => `/warleagues/${leagueId}`,
 };

@@ -3,6 +3,7 @@ import Clans from "./Clans";
 import { BASE_URL, ENDPOINTS } from "./Constants";
 import League from "./Structures/League";
 import Player from "./Structures/Player";
+import WarLeague from "./Structures/WarLeague";
 
 export default class {
   protected token: string;
@@ -149,6 +150,47 @@ export default class {
       this.get(ENDPOINTS.LEAGUE(leagueId))
         .then((apiLeague: any) => {
           resolve(new League(this, apiLeague));
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * List war leagues
+   * @param limit
+   * @param after
+   * @param before
+   * @returns {WarLeague[]}
+   */
+  fetchWarLeagues(
+    limit?: number,
+    after?: string,
+    before?: string
+  ): Promise<WarLeague[]> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.WARLEAGUES(limit, after, before))
+        .then((apiWarLeagues: any) => {
+          const warLeagues = [];
+          for (const apiWarLeague of apiWarLeagues.items) {
+            warLeagues.push(new WarLeague(this, apiWarLeague));
+          }
+
+          resolve(warLeagues);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Get war league information
+   * @param leagueId Identifier of the league
+   * @returns {League}
+   */
+  fetchWarLeague(leagueId: string): Promise<WarLeague> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.WARLEAGUE(leagueId))
+        .then((apiWarLeague: any) => {
+          resolve(new WarLeague(this, apiWarLeague));
         })
         .catch(reject);
     });
