@@ -108,4 +108,40 @@ export const ENDPOINTS = {
    */
   PLAYER_VERIFYTOKEN: (playerTag: string) =>
     `/players/${playerTag}/verifytoken`,
+  /**
+   * List leagues
+   */
+  LEAGUES: (limit?: number, after?: string, before?: string) => {
+    const url = new URL("/clans", BASE_URL);
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/leagues${url.search}`;
+  },
+  /**
+   * Get league information
+   * @param leagueId Identifier of the league
+   * @returns string
+   */
+  LEAGUE: (leagueId: string) => `/leagues/${leagueId}`,
+  /**
+   * Get league seasons. Note that league season information is available only for Legend League.
+   * @param leagueId Identifier of the league
+   * @param limit
+   * @param after
+   * @param before
+   * @returns string
+   */
+  LEAGUE_SEASONS: (
+    leagueId: string,
+    limit?: number,
+    after?: string,
+    before?: string
+  ) => {
+    const url = new URL(`/leagues/${leagueId}/seasons`, BASE_URL);
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/leagues${url.search}`;
+  },
 };

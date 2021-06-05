@@ -1,6 +1,7 @@
 import c from "centra";
 import Clans from "./Clans";
 import { BASE_URL, ENDPOINTS } from "./Constants";
+import League from "./Structures/League";
 import Player from "./Structures/Player";
 
 export default class {
@@ -108,6 +109,46 @@ export default class {
       this.get(ENDPOINTS.PLAYER(playerTag))
         .then((apiPlayer: any) => {
           resolve(new Player(this, apiPlayer));
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * List leagues
+   * @param limit
+   * @param after
+   * @param before
+   * @returns {League[]}
+   */
+  fetchLeagues(
+    limit?: number,
+    after?: string,
+    before?: string
+  ): Promise<League[]> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.LEAGUES(limit, after, before))
+        .then((apiLeagueList: any) => {
+          const leagues = [];
+          for (const apiLeague of apiLeagueList.items) {
+            leagues.push(new League(this, apiLeague));
+          }
+          resolve(leagues);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Get league information
+   * @param leagueId Identifier of the league
+   * @returns {League}
+   */
+  fetchLeague(leagueId: string): Promise<League> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.LEAGUE(leagueId))
+        .then((apiLeague: any) => {
+          resolve(new League(this, apiLeague));
         })
         .catch(reject);
     });

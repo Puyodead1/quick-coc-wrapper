@@ -262,3 +262,7 @@ export interface APIPlayerVerifyTokenResponse {
   token: string;
   status: string;
 }
+
+export interface APILeagueSeason {
+  id: string;
+}

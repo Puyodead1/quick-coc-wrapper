@@ -9,22 +9,21 @@ const CLAN_TAG = "#2LYY8R9RY";
 const PLAYER_PROFILE_TAG = "#90GGPGLRV";
 
 (async () => {
-  // api.clans
-  //   .getClan(CLAN_TAG)
-  //   .then((clan) => {
-  //     clan
-  //       .fetchWarLog()
-  //       .then((war) => {
-  //         console.log(war);
-  //       })
-  //       .catch(console.error);
-  //   })
-  //   .catch(console.error);
-
+  console.log("============== Leagues List ==============\n");
   api
-    .fetchPlayer(PLAYER_PROFILE_TAG)
-    .then((player) => {
-      console.log(player);
+    .fetchLeagues()
+    .then((leagues) => {
+      console.log(leagues);
+      console.log("============== League ==============\n");
+      const league = leagues.find((x) => x.name === "Legend League");
+      console.log(league);
+      console.log("============== League Seasons ==============\n");
+      league!
+        .fetchSeasons()
+        .then((seasons) => {
+          console.log(seasons);
+        })
+        .catch(console.error);
     })
     .catch(console.error);
 })();
