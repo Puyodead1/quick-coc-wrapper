@@ -215,16 +215,16 @@ export interface APIPlayerItemLevel {
   name: unknown;
   maxLevel: number;
   village: string;
-  superTroopIsActive: boolean;
+  superTroopIsActive?: boolean;
 }
 
 export interface APIPlayerAchievementProgress {
   stars: number;
   value: number;
-  name: unknown;
+  name: string;
   target: number;
-  info: unknown;
-  completionInfo: unknown;
+  info: string;
+  completionInfo: unknown | null;
   village: string;
 }
 
@@ -255,4 +255,10 @@ export interface APIPlayer {
   warStars: number;
   achievements: APIPlayerAchievementProgress[];
   versusBattleWinCount: number;
+}
+
+export interface APIPlayerVerifyTokenResponse {
+  tag: string;
+  token: string;
+  status: string;
 }

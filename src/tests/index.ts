@@ -1,21 +1,30 @@
 import ClashAPI from "../ClashAPI";
-import { token } from "./config.json";
+import { CC_TOKEN, LT_TOKEN } from "./config";
 
-const api = new ClashAPI(token);
+const api = new ClashAPI(
+  process.env.USERDOMAIN === "DESKTOP-B2O53RK" ? LT_TOKEN : CC_TOKEN
+);
 
 const CLAN_TAG = "#2LYY8R9RY";
-const PROFILE_TAG = "#90GGPGLRV";
+const PLAYER_PROFILE_TAG = "#90GGPGLRV";
 
 (async () => {
-  api.clans
-    .getClan(CLAN_TAG)
-    .then((clan) => {
-      clan
-        .fetchWarLog()
-        .then((war) => {
-          console.log(war);
-        })
-        .catch(console.error);
+  // api.clans
+  //   .getClan(CLAN_TAG)
+  //   .then((clan) => {
+  //     clan
+  //       .fetchWarLog()
+  //       .then((war) => {
+  //         console.log(war);
+  //       })
+  //       .catch(console.error);
+  //   })
+  //   .catch(console.error);
+
+  api
+    .fetchPlayer(PLAYER_PROFILE_TAG)
+    .then((player) => {
+      console.log(player);
     })
     .catch(console.error);
 })();

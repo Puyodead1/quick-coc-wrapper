@@ -1,14 +1,16 @@
 import ClashAPI from "../ClashAPI";
 import {
   APILabel,
-  APILeague,
   APIPlayer,
-  APIPlayerClan,
+  APIPlayerAchievementProgress,
   APIPlayerItemLevel,
-  APIPlayerLegendStatistics,
+  APIPlayerVerifyTokenResponse,
 } from "../ClashInterface";
+import { ENDPOINTS } from "../Constants";
 import League from "./League";
+import PlayerAchievementProgress from "./PlayerAchievementProgress";
 import PlayerClan from "./PlayerClan";
+import PlayerItemLevel from "./PlayerItemLevel";
 import PlayerLegendStatistics from "./PlayerLegendStatistics";
 
 export default class Player {
@@ -22,9 +24,9 @@ export default class Player {
   townHallWeaponLevel: number;
   versusBattleWins: number;
   legendStatistics?: PlayerLegendStatistics;
-  troops: APIPlayerItemLevel[];
-  heroes: APIPlayerItemLevel[];
-  spells: APIPlayerItemLevel[];
+  troops: PlayerItemLevel[] = [];
+  heroes: PlayerItemLevel[] = [];
+  spells: PlayerItemLevel[] = [];
   labels: APILabel[];
   tag: string;
   name: string;
@@ -37,7 +39,7 @@ export default class Player {
   versusTrophies: number;
   bestVersusTrophies: number;
   warStars: number;
-  achievements: import("f:/code/quick-coc-wrapper/src/ClashInterface").APIPlayerAchievementProgress[];
+  achievements: PlayerAchievementProgress[] = [];
   versusBattleWinCount: number;
 
   constructor(api: ClashAPI, data: APIPlayer) {
@@ -65,9 +67,21 @@ export default class Player {
         data.legendStatistics
       );
     }
-    this.troops = data.troops; // TODO:
-    this.heroes = data.heroes; // TODO:
-    this.spells = data.spells; // TODO:
+    if (data.troops) {
+      data.troops.forEach((troop) => {
+        this.troops.push(new PlayerItemLevel(this.api, troop));
+      });
+    }
+    if (data.heroes) {
+      data.heroes.forEach((hero) => {
+        this.heroes.push(new PlayerItemLevel(this.api, hero));
+      });
+    }
+    if (data.spells) {
+      data.spells.forEach((spell) => {
+        this.spells.push(new PlayerItemLevel(this.api, spell));
+      });
+    }
     this.labels = data.labels;
     this.tag = data.tag;
     this.name = data.name;
@@ -80,7 +94,26 @@ export default class Player {
     this.versusTrophies = data.versusTrophies;
     this.bestVersusTrophies = data.bestVersusTrophies;
     this.warStars = data.warStars;
-    this.achievements = data.achievements; // TODO:
+    if (data.achievements) {
+      data.achievements.forEach((achievement) => {
+        this.achievements.push(
+          new PlayerAchievementProgress(this.api, achievement)
+        );
+      });
+    }
     this.versusBattleWinCount = data.versusBattleWinCount;
+  }
+
+  verifyToken(token: string): Promise<APIPlayerVerifyTokenResponse> {
+    return new Promise((resolve, reject) => {
+      this.api
+        .post(ENDPOINTS.PLAYER_VERIFYTOKEN(this.tag), {
+          token,
+        })
+        .then((playerTokenVerifyResponse: any) => {
+          resolve(playerTokenVerifyResponse);
+        })
+        .catch(reject);
+    });
   }
 }

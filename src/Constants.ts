@@ -86,8 +86,26 @@ export const ENDPOINTS = {
   /**
    *
    * @param clanTag Tag of the clan
-   * @returns
+   * @returns string
    */
   CLAN: (clanTag: string) => `/clans/${clanTag}`,
+  /**
+   * List clan members
+   * @param clanTag Tag of the clan
+   * @returns string
+   */
   CLAN_MEMBERS: (clanTag: string) => `/clans/${clanTag}/members`,
+  /**
+   * Get information about a single player by player tag. Player tags can be found either in game or by from clan member lists.
+   * @param playerTag Tag of the player
+   * @returns string
+   */
+  PLAYER: (playerTag: string) => `/players/${playerTag}`,
+  /**
+   * Verify player API token that can be found from the game settings. This API call can be used to check that players own the game accounts they claim to own as they need to provide the one-time use API token that exists inside the game.
+   * @param playerTag Tag of the player
+   * @returns string
+   */
+  PLAYER_VERIFYTOKEN: (playerTag: string) =>
+    `/players/${playerTag}/verifytoken`,
 };
