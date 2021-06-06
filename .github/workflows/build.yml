@@ -20,4 +20,4 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm run build:code
+      - run: npm run build:ts
