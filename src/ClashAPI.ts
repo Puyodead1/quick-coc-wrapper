@@ -7,10 +7,12 @@ import { Player } from "./Structures/Player";
 import { WarLeague } from "./Structures/WarLeague";
 import { GoldPassSeason } from "./Structures/GoldPassSeason";
 import { Label } from "./Structures/Label";
+import { CacheControlContent } from "./ClashInterface";
 
 export class ClashAPI {
   protected token: string;
   clans: Clans;
+  cacheControl: Map<String, CacheControlContent> = new Map();
 
   /**
    * Creates a new ClashAPI instance
@@ -28,7 +30,21 @@ export class ClashAPI {
    */
   get(endpoint: string) {
     return new Promise((resolve, reject) => {
-      const req = c(`${BASE_URL}${endpoint}`.replace("#", "%23"), "GET")
+      const url = `${BASE_URL}${endpoint}`.replace("#", "%23");
+      if (this.cacheControl.has(url)) {
+        const cache = this.cacheControl.get(url);
+        if (cache!.timestamp > Date.now()) {
+          // cache has not expired
+          resolve({
+            error: false,
+            body: cache!.data,
+          });
+        } else {
+          // cache has expired, remove it
+          this.cacheControl.delete(url);
+        }
+      }
+      const req = c(url, "GET")
         .header("Accept", "application/json")
         .header("Authorization", `Bearer ${this.token}`)
         .send();
@@ -36,9 +52,14 @@ export class ClashAPI {
         .then(async (res) => {
           if (res.statusCode === 200) {
             try {
+              const body = await res.json();
+              this.cacheControl.set(url, {
+                timestamp: Date.now() + 60,
+                data: body,
+              });
               resolve({
                 error: false,
-                body: await res.json(),
+                body,
               });
             } catch {
               resolve({

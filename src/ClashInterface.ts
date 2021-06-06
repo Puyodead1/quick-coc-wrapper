@@ -337,3 +337,8 @@ export interface APIGoldPassSeason {
   startTime: string;
   endTime: string;
 }
+
+export interface CacheControlContent {
+  timestamp: number;
+  data: any;
+}
