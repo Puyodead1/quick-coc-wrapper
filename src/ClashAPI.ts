@@ -5,6 +5,7 @@ import League from "./Structures/League";
 import Location from "./Structures/Location";
 import Player from "./Structures/Player";
 import WarLeague from "./Structures/WarLeague";
+import GoldPassSeason from "./Structures/GoldPassSeason";
 
 export default class {
   protected token: string;
@@ -260,6 +261,22 @@ export default class {
         .then((apiLocation: any) => {
           if (!apiLocation.error) resolve(new Location(this, apiLocation.body));
           reject(apiLocation);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Get information about the current gold pass season.
+   * @returns {GoldPassSeason}
+   */
+  fetchCurrentGoldPassSeason(): Promise<GoldPassSeason> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.GOLDPASS_CURRENT_SEASON)
+        .then((apiGoldPassSeason: any) => {
+          if (!apiGoldPassSeason.error)
+            resolve(new GoldPassSeason(this, apiGoldPassSeason.body));
+          reject(apiGoldPassSeason);
         })
         .catch(reject);
     });

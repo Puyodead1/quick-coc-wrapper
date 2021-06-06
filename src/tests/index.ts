@@ -28,14 +28,7 @@ const PLAYER_PROFILE_TAG = "#90GGPGLRV";
   //   .catch(console.error);
 
   api
-    .fetchLocation(32000098)
-    .then((location) => {
-      location
-        .fetchClanVersusRankings()
-        .then((rankings) => {
-          console.log(rankings);
-        })
-        .catch(console.error);
-    })
+    .fetchCurrentGoldPassSeason()
+    .then((goldPassSeason) => console.log(goldPassSeason))
     .catch(console.error);
 })();

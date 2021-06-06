@@ -332,3 +332,8 @@ export interface APIPlayerVersusRanking {
   previousRank: number;
   versusTrophies: number;
 }
+
+export interface APIGoldPassSeason {
+  startTime: string;
+  endTime: string;
+}

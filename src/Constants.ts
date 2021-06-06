@@ -278,4 +278,8 @@ export const ENDPOINTS = {
     if (before) url.searchParams.append("before", before);
     return `/locations/${locationId}/rankings/players-versus${url.search}`;
   },
+  /**
+   * Get information about the current gold pass season.
+   */
+  GOLDPASS_CURRENT_SEASON: `/goldpass/seasons/current`,
 };
