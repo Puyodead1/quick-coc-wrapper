@@ -1,6 +1,6 @@
 {
   "name": "quick-coc-wrapper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple API Wrapper for Clash of Clans",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,6 +12,13 @@
     "build:ts": "npm run clean && tsc",
     "build:docs": "typedoc src/index.ts"
   },
+  "keywords": [
+    "clash-of-clans",
+    "clashofclans",
+    "coc",
+    "clash",
+    "clans"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Puyodead1/quick-coc-wrapper.git"
