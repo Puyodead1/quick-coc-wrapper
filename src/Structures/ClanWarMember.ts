@@ -12,6 +12,11 @@ export class ClanWarMember {
   bestOpponentAttack?: ClanWarAttack;
   attacks: ClanWarAttack[] = [];
 
+  /**
+   * Creates a new ClanWarMember instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanWarMember data
+   */
   constructor(api: ClashAPI, data: APIClanWarMember) {
     Object.defineProperty(this, "api", {
       enumerable: false,

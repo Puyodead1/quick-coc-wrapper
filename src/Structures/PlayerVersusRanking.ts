@@ -13,6 +13,11 @@ export class PlayerVersusRanking {
   previousRank: number;
   versusTrophies: number;
 
+  /**
+   * Creates a new PlayerVersusRanking instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIPlayerVersusRanking data
+   */
   constructor(api: ClashAPI, data: APIPlayerVersusRanking) {
     Object.defineProperty(this, "api", {
       enumerable: false,

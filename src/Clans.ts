@@ -5,6 +5,11 @@ import { Clan } from "./Structures/Clan";
 
 export class Clans {
   private api!: ClashAPI;
+
+  /**
+   * Class that handles base of Clans
+   * @param api reference to ClashAPI
+   */
   constructor(api: ClashAPI) {
     Object.defineProperty(this, "api", {
       enumerable: false,

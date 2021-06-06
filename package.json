@@ -4,10 +4,13 @@
   "description": "Simple API Wrapper for Clash of Clans",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc",
-    "typings": "typings bundle -o index.d.ts"
+    "build:ts": "npm run clean && tsc",
+    "build:docs": "typedoc src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -28,6 +31,7 @@
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
     "mocha": "^8.4.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.20.36"
   }
 }

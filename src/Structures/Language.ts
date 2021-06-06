@@ -7,6 +7,11 @@ export class Language {
   id: number;
   languageCode: string;
 
+  /**
+   * Creates a new Language instance
+   * @param api Reference to ClashAPI instance
+   * @param data APILanguage data
+   */
   constructor(api: ClashAPI, data: APILanguage) {
     Object.defineProperty(this, "api", {
       enumerable: false,

@@ -10,6 +10,11 @@ export class ClanWarLeagueClan {
   members: Map<string, ClanWarLeagueClanMember> = new Map();
   badgeUrls: { small: string; large: string; medium: string };
 
+  /**
+   * Creates a new ClanWarLeagueClan instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanWarLeagueClan data
+   */
   constructor(api: ClashAPI, data: APIClanWarLeagueClan) {
     Object.defineProperty(this, "api", {
       enumerable: false,

@@ -37,6 +37,11 @@ export class Player {
   achievements: PlayerAchievementProgress[] = [];
   versusBattleWinCount: number;
 
+  /**
+   * Creates a new Player instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIPlayer data
+   */
   constructor(api: ClashAPI, data: APIPlayer) {
     Object.defineProperty(this, "api", {
       enumerable: false,

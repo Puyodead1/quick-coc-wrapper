@@ -11,6 +11,11 @@ import { Label } from "./Structures/Label";
 export class ClashAPI {
   protected token: string;
   clans: Clans;
+
+  /**
+   * Creates a new ClashAPI instance
+   * @param token Clash of Clans API Token
+   */
   constructor(token: string) {
     this.token = token;
     this.clans = new Clans(this);

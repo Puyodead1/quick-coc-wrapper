@@ -6,6 +6,11 @@ export class WarLeague {
   name: string;
   id: number;
 
+  /**
+   * Creates a new WarLeague instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIWarLeague data
+   */
   constructor(api: ClashAPI, data: APIWarLeague) {
     Object.defineProperty(this, "api", {
       enumerable: false,

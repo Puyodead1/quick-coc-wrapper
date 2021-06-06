@@ -9,6 +9,11 @@ export class PlayerItemLevel {
   village: string;
   superTroopIsActive: boolean = false;
 
+  /**
+   * Creates a new PlayerItemLevel instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIPlayerItemLevel data
+   */
   constructor(api: ClashAPI, data: APIPlayerItemLevel) {
     Object.defineProperty(this, "api", {
       enumerable: false,

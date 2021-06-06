@@ -16,6 +16,11 @@ export class ClanMember {
   trophies: number;
   versusTrophies: number;
 
+  /**
+   * Creates a new ClanMember instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanMember data
+   */
   constructor(api: ClashAPI, data: APIClanMember) {
     Object.defineProperty(this, "api", {
       enumerable: false,

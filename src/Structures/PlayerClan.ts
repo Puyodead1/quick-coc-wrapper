@@ -8,6 +8,11 @@ export class PlayerClan {
   name: string;
   badgeUrls: { small: string; large: string; medium: string };
 
+  /**
+   * Creates a new PlayerClan instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIPlayerClan data
+   */
   constructor(api: ClashAPI, data: APIPlayerClan) {
     Object.defineProperty(this, "api", {
       enumerable: false,

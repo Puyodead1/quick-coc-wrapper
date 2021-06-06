@@ -7,6 +7,11 @@ export class GoldPassSeason {
   startTime: Date | string;
   endTime: Date | string;
 
+  /**
+   * Creates a new GoldPassSeason instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIGoldPassSeason data
+   */
   constructor(api: ClashAPI, data: APIGoldPassSeason) {
     Object.defineProperty(this, "api", {
       enumerable: false,

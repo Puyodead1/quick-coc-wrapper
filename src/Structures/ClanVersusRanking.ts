@@ -14,6 +14,11 @@ export class ClanVersusRanking {
   rank: number;
   previousRank: number;
 
+  /**
+   * Creates a new ClanVersusRanking instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanVersusRanking data
+   */
   constructor(api: ClashAPI, data: APIClanVersusRanking) {
     Object.defineProperty(this, "api", {
       enumerable: false,

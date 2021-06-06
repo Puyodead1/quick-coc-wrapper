@@ -14,6 +14,11 @@ export class WarClan {
   expEarned?: number;
   members: Map<string, ClanWarMember> = new Map();
 
+  /**
+   * Creates a new WarClan instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIWarClan data
+   */
   constructor(api: ClashAPI, data: APIWarClan) {
     Object.defineProperty(this, "api", {
       enumerable: false,

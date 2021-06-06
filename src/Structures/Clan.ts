@@ -36,6 +36,11 @@ export class Clan {
   chatLanguage?: Language;
   description?: string | undefined;
 
+  /**
+   * Creates a new Clan instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClan data
+   */
   constructor(api: ClashAPI, data: APIClan) {
     Object.defineProperty(this, "api", {
       enumerable: false,

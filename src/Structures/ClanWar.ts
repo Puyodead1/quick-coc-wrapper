@@ -12,6 +12,11 @@ export class ClanWar {
   endTime?: Date | string | undefined;
   preparationStartTime?: string | undefined;
 
+  /**
+   * Creates a new ClanWar instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanWar data
+   */
   constructor(api: ClashAPI, data: APIClanWar) {
     Object.defineProperty(this, "api", {
       enumerable: false,

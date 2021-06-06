@@ -13,6 +13,11 @@ export class ClanWarLeagueGroup {
   clans: ClanWarLeagueClan[] = [];
   rounds: APIClanWarLeagueRound[];
 
+  /**
+   * Creates a new ClanWarLeagueGroup instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanWarLeagueGroup data
+   */
   constructor(api: ClashAPI, data: APIClanWarLeagueGroup) {
     Object.defineProperty(this, "api", {
       enumerable: false,

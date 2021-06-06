@@ -10,6 +10,11 @@ export class ClanWarAttack {
   destructionPercentage: number;
   duration: number;
 
+  /**
+   * Creates a new ClanWarAttack instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanWarAttack data
+   */
   constructor(api: ClashAPI, data: APIClanWarAttack) {
     Object.defineProperty(this, "api", {
       enumerable: false,

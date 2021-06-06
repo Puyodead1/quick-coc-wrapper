@@ -7,6 +7,11 @@ export class PlayerRankingClan {
   name: string;
   badgeUrls: { small: string; large: string; medium: string };
 
+  /**
+   * Creates a new PlayerRankingClan instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIPlayerRankingClan data
+   */
   constructor(api: ClashAPI, data: APIPlayerRankingClan) {
     Object.defineProperty(this, "api", {
       enumerable: false,

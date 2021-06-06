@@ -14,6 +14,11 @@ export class Location {
   isCountry: boolean;
   countryCode: string;
 
+  /**
+   * Creates a new Location instance
+   * @param api Reference to ClashAPI instance
+   * @param data APILocation data
+   */
   constructor(api: ClashAPI, data: APILocation) {
     Object.defineProperty(this, "api", {
       enumerable: false,

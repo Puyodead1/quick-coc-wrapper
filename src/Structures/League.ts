@@ -9,6 +9,11 @@ export class League {
   name: string;
   iconUrls: { small: string; tiny: string; medium: string };
 
+  /**
+   * Creates a new League instance
+   * @param api Reference to ClashAPI instance
+   * @param data APILeague data
+   */
   constructor(api: ClashAPI, data: APILeague) {
     Object.defineProperty(this, "api", {
       enumerable: false,

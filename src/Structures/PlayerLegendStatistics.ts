@@ -11,6 +11,11 @@ export class PlayerLegendStatistics {
   previousSeason?: LegendLeagueTournamentSeasonResult;
   bestSeason?: LegendLeagueTournamentSeasonResult;
 
+  /**
+   * Creates a new PlayerLegendStatistics instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIPlayerLegendStatistics data
+   */
   constructor(api: ClashAPI, data: APIPlayerLegendStatistics) {
     Object.defineProperty(this, "api", {
       enumerable: false,

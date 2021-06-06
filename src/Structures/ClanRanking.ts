@@ -13,6 +13,11 @@ export class ClanRanking {
   previousRank: number;
   badgeUrls: { small: string; large: string; medium: string };
 
+  /**
+   * Creates a new ClanRanking instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanRanking data
+   */
   constructor(api: ClashAPI, data: APIClanRanking) {
     Object.defineProperty(this, "api", {
       enumerable: false,

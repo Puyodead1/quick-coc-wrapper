@@ -11,6 +11,11 @@ export class PlayerAchievementProgress {
   completionInfo: unknown;
   village: string;
 
+  /**
+   * Creates a new PlayerAchievementProgress instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIPlayerAchievementProgress data
+   */
   constructor(api: ClashAPI, data: APIPlayerAchievementProgress) {
     Object.defineProperty(this, "api", {
       enumerable: false,

@@ -7,6 +7,11 @@ export class ClanWarLeagueClanMember {
   townHallLevel: number;
   name: string;
 
+  /**
+   * Creates a new ClanWarLeagueClanMember instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanWarLeagueClanMember data
+   */
   constructor(api: ClashAPI, data: APIClanWarLeagueClanMember) {
     Object.defineProperty(this, "api", {
       enumerable: false,

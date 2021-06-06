@@ -11,6 +11,11 @@ export class ClanWarLogEntry {
   endTime?: Date | string;
   result: string;
 
+  /**
+   * Creates a new ClanWarLogEntry instance
+   * @param api Reference to ClashAPI instance
+   * @param data APIClanWarLogEntry data
+   */
   constructor(api: ClashAPI, data: APIClanWarLogEntry) {
     Object.defineProperty(this, "api", {
       enumerable: false,
