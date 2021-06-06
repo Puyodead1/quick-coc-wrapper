@@ -2,11 +2,12 @@
   "name": "quick-coc-wrapper",
   "version": "1.0.0",
   "description": "Simple API Wrapper for Clash of Clans",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
-    "test": "npm run build && node dist\\tests\\index.js"
+    "typings": "typings bundle -o index.d.ts"
   },
   "repository": {
     "type": "git",

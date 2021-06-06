@@ -1,9 +1,9 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIPlayerRanking } from "../ClashInterface";
-import League from "./League";
-import PlayerRankingClan from "./PlayerRankingClan";
+import { League } from "./League";
+import { PlayerRankingClan } from "./PlayerRankingClan";
 
-export default class PlayerRanking {
+export class PlayerRanking {
   private api!: ClashAPI;
   league?: League;
   clan?: PlayerRankingClan;

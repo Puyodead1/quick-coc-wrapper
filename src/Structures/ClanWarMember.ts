@@ -1,8 +1,8 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIClanWarMember } from "../ClashInterface";
-import ClanWarAttack from "./ClanWarAttack";
+import { ClanWarAttack } from "./ClanWarAttack";
 
-export default class ClanWarMember {
+export class ClanWarMember {
   private api!: ClashAPI;
   tag: string;
   name: string;

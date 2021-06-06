@@ -1,9 +1,9 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIClanWarLogEntry } from "../ClashInterface";
-import WarClan from "./WarClan";
+import { WarClan } from "./WarClan";
 import { isoShortToFull } from "../Utils";
 
-export default class ClanWarLogEntry {
+export class ClanWarLogEntry {
   private api!: ClashAPI;
   clan: WarClan;
   teamSize: number;

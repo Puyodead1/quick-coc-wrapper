@@ -1,13 +1,13 @@
 import { ClashAPI } from "../ClashAPI";
-import { APILanguage } from "../ClashInterface";
+import { APILabel } from "../ClashInterface";
 
-export class Language {
+export class Label {
   private api!: ClashAPI;
   name: string;
   id: number;
-  languageCode: string;
+  iconUrls: { small: string; medium: string };
 
-  constructor(api: ClashAPI, data: APILanguage) {
+  constructor(api: ClashAPI, data: APILabel) {
     Object.defineProperty(this, "api", {
       enumerable: false,
       writable: false,
@@ -16,6 +16,6 @@ export class Language {
 
     this.name = data.name;
     this.id = data.id;
-    this.languageCode = data.languageCode;
+    this.iconUrls = data.iconUrls;
   }
 }

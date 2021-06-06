@@ -1,11 +1,11 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import {
   APIClanWarLeagueGroup,
   APIClanWarLeagueRound,
 } from "../ClashInterface";
-import ClanWarLeagueClan from "./ClanWarLeagueClan";
+import { ClanWarLeagueClan } from "./ClanWarLeagueClan";
 
-export default class ClanWarLeagueGroup {
+export class ClanWarLeagueGroup {
   private api!: ClashAPI;
   tag?: string | undefined;
   state: string;

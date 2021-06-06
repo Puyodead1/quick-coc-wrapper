@@ -1,14 +1,9 @@
-import ClashAPI from "../ClashAPI";
-import {
-  APIClan,
-  APILabel,
-  APILocation,
-  APIClanMember,
-} from "../ClashInterface";
-import League from "./League";
+import { ClashAPI } from "../ClashAPI";
+import { APIClanMember } from "../ClashInterface";
+import { League } from "./League";
 
-export default class ClanMember {
-  private api!: ClashAPI;
+export class ClanMember {
+  private api!: ClashAPI; // @ts-ignore
   league?: League;
   tag: string;
   name: string;

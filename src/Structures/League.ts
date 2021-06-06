@@ -1,9 +1,9 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APILeague } from "../ClashInterface";
 import { ENDPOINTS } from "../Constants";
-import LeagueSeason from "./LeagueSeason";
+import { LeagueSeason } from "./LeagueSeason";
 
-export default class League {
+export class League {
   private api!: ClashAPI;
   id: number;
   name: string;

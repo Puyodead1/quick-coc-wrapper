@@ -1,7 +1,7 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIPlayerAchievementProgress } from "../ClashInterface";
 
-export default class PlayerAchievementProgress {
+export class PlayerAchievementProgress {
   private api!: ClashAPI;
   stars: number;
   value: number;

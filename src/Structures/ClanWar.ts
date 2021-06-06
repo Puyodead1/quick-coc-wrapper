@@ -1,8 +1,8 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIClanWar, APIWarClan } from "../ClashInterface";
 import { isoShortToFull } from "../Utils";
 
-export default class ClanWar {
+export class ClanWar {
   private api!: ClashAPI;
   clan: APIWarClan;
   teamSize?: number | undefined;

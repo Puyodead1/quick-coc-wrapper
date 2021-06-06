@@ -1,8 +1,8 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIClanRanking } from "../ClashInterface";
-import Location from "./Location";
+import { Location } from "./Location";
 
-export default class ClanRanking {
+export class ClanRanking {
   private api!: ClashAPI;
   clanLevel: number;
   clanPoints: number;

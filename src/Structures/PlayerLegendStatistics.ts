@@ -1,8 +1,8 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIPlayerLegendStatistics } from "../ClashInterface";
-import LegendLeagueTournamentSeasonResult from "./LegendLeagueTournamentSeasonResult";
+import { LegendLeagueTournamentSeasonResult } from "./LegendLeagueTournamentSeasonResult";
 
-export default class PlayerLegendStatistics {
+export class PlayerLegendStatistics {
   private api!: ClashAPI;
   previousVersusSeason?: LegendLeagueTournamentSeasonResult;
   bestVersusSeason?: LegendLeagueTournamentSeasonResult;

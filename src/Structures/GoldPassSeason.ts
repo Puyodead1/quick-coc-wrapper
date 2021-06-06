@@ -1,8 +1,8 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIGoldPassSeason } from "../ClashInterface";
 import { isoShortToFull } from "../Utils";
 
-export default class GoldPassSeason {
+export class GoldPassSeason {
   private api!: ClashAPI;
   startTime: Date | string;
   endTime: Date | string;

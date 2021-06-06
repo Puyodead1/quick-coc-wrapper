@@ -1,13 +1,14 @@
 import c from "centra";
-import Clans from "./Clans";
+import { Clans } from "./Clans";
 import { BASE_URL, ENDPOINTS } from "./Constants";
-import League from "./Structures/League";
-import Location from "./Structures/Location";
-import Player from "./Structures/Player";
-import WarLeague from "./Structures/WarLeague";
-import GoldPassSeason from "./Structures/GoldPassSeason";
+import { League } from "./Structures/League";
+import { Location } from "./Structures/Location";
+import { Player } from "./Structures/Player";
+import { WarLeague } from "./Structures/WarLeague";
+import { GoldPassSeason } from "./Structures/GoldPassSeason";
+import { Label } from "./Structures/Label";
 
-export default class {
+export class ClashAPI {
   protected token: string;
   clans: Clans;
   constructor(token: string) {
@@ -277,6 +278,48 @@ export default class {
           if (!apiGoldPassSeason.error)
             resolve(new GoldPassSeason(this, apiGoldPassSeason.body));
           reject(apiGoldPassSeason);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * List player labels
+   * @returns {Label[]}
+   */
+  fetchPlayerLabels(): Promise<Label[]> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.LABELS_PLAYERS)
+        .then((apiLabels: any) => {
+          if (!apiLabels.error) {
+            const labels = [];
+            for (const apiLabel of apiLabels.body.items) {
+              labels.push(new Label(this, apiLabel));
+            }
+            resolve(labels);
+          }
+          reject(apiLabels);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * List clan labels
+   * @returns {Label[]}
+   */
+  fetchClanLabels(): Promise<Label[]> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.LABELS_CLANS)
+        .then((apiLabels: any) => {
+          if (!apiLabels.error) {
+            const labels = [];
+            for (const apiLabel of apiLabels.body.items) {
+              labels.push(new Label(this, apiLabel));
+            }
+            resolve(labels);
+          }
+          reject(apiLabels);
         })
         .catch(reject);
     });

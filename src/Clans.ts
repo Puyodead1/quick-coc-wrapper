@@ -1,9 +1,9 @@
 import { ClanSearchOptions } from "./ClashInterface";
-import ClashAPI from "./ClashAPI";
+import { ClashAPI } from "./ClashAPI";
 import { ENDPOINTS } from "./Constants";
-import Clan from "./Structures/Clan";
+import { Clan } from "./Structures/Clan";
 
-export default class {
+export class Clans {
   private api!: ClashAPI;
   constructor(api: ClashAPI) {
     Object.defineProperty(this, "api", {

@@ -1,7 +1,7 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIPlayerClan } from "../ClashInterface";
 
-export default class PlayerClan {
+export class PlayerClan {
   private api!: ClashAPI;
   tag: string;
   clanLevel: number;

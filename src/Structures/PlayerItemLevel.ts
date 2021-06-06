@@ -1,7 +1,7 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIPlayerItemLevel } from "../ClashInterface";
 
-export default class PlayerItemLevel {
+export class PlayerItemLevel {
   private api!: ClashAPI;
   level: number;
   name: unknown;

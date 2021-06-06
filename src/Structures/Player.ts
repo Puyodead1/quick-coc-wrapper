@@ -1,17 +1,14 @@
-import ClashAPI from "../ClashAPI";
-import {
-  APILabel,
-  APIPlayer,
-  APIPlayerVerifyTokenResponse,
-} from "../ClashInterface";
+import { ClashAPI } from "../ClashAPI";
+import { APIPlayer, APIPlayerVerifyTokenResponse } from "../ClashInterface";
 import { ENDPOINTS } from "../Constants";
-import League from "./League";
-import PlayerAchievementProgress from "./PlayerAchievementProgress";
-import PlayerClan from "./PlayerClan";
-import PlayerItemLevel from "./PlayerItemLevel";
-import PlayerLegendStatistics from "./PlayerLegendStatistics";
+import { Label } from "./Label";
+import { League } from "./League";
+import { PlayerAchievementProgress } from "./PlayerAchievementProgress";
+import { PlayerClan } from "./PlayerClan";
+import { PlayerItemLevel } from "./PlayerItemLevel";
+import { PlayerLegendStatistics } from "./PlayerLegendStatistics";
 
-export default class Player {
+export class Player {
   private api!: ClashAPI;
   league?: League;
   clan?: PlayerClan;
@@ -25,7 +22,7 @@ export default class Player {
   troops: PlayerItemLevel[] = [];
   heroes: PlayerItemLevel[] = [];
   spells: PlayerItemLevel[] = [];
-  labels: APILabel[];
+  labels: Label[] = [];
   tag: string;
   name: string;
   expLevel: number;
@@ -80,7 +77,11 @@ export default class Player {
         this.spells.push(new PlayerItemLevel(this.api, spell));
       });
     }
-    this.labels = data.labels;
+    if (data.labels) {
+      for (const apiLabel of data.labels) {
+        this.labels.push(new Label(this.api, apiLabel));
+      }
+    }
     this.tag = data.tag;
     this.name = data.name;
     this.expLevel = data.expLevel;

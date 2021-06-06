@@ -1,7 +1,7 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIWarLeague } from "../ClashInterface";
 
-export default class WarLeague {
+export class WarLeague {
   private api!: ClashAPI;
   name: string;
   id: number;

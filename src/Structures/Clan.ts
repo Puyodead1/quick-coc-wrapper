@@ -1,15 +1,16 @@
-import ClashAPI from "../ClashAPI";
-import { APIClan, APILabel } from "../ClashInterface";
+import { ClashAPI } from "../ClashAPI";
+import { APIClan } from "../ClashInterface";
 import { ENDPOINTS } from "../Constants";
-import ClanMember from "./ClanMember";
-import ClanWar from "./ClanWar";
-import ClanWarLeagueGroup from "./ClanWarLeagueGroup";
-import ClanWarLogEntry from "./ClanWarLogEntry";
-import Language from "./Language";
-import Location from "./Location";
-import WarLeague from "./WarLeague";
+import { ClanMember } from "./ClanMember";
+import { ClanWar } from "./ClanWar";
+import { ClanWarLeagueGroup } from "./ClanWarLeagueGroup";
+import { ClanWarLogEntry } from "./ClanWarLogEntry";
+import { Language } from "./Language";
+import { Location } from "./Location";
+import { WarLeague } from "./WarLeague";
+import { Label } from "./Label";
 
-export default class Clan {
+export class Clan {
   private api!: ClashAPI;
   tag: string;
   name: string;
@@ -26,7 +27,7 @@ export default class Clan {
   isWarLogPublic: boolean;
   warLeague?: WarLeague;
   members: number;
-  labels: APILabel[] = [];
+  labels: Label[] = [];
   requiredVersusTrophies: number;
   requiredTownhallLevel: number;
   memberList: Map<string, ClanMember> = new Map();
@@ -67,7 +68,11 @@ export default class Clan {
     }
     this.warFrequency = data.warFrequency;
     this.clanLevel = data.clanLevel;
-    this.labels = data.labels;
+    if (data.labels) {
+      for (const apiLabel of data.labels) {
+        this.labels.push(new Label(this.api, apiLabel));
+      }
+    }
     this.name = data.name;
     if (data.location) {
       this.location = new Location(this.api, data.location);

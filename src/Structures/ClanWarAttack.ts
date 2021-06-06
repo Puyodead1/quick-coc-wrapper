@@ -1,7 +1,7 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIClanWarAttack } from "../ClashInterface";
 
-export default class ClanWarAttack {
+export class ClanWarAttack {
   private api!: ClashAPI;
   stars: number;
   order: number;

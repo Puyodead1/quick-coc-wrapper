@@ -1,8 +1,8 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APIClanVersusRanking } from "../ClashInterface";
-import Location from "./Location";
+import { Location } from "./Location";
 
-export default class ClanVersusRanking {
+export class ClanVersusRanking {
   private api!: ClashAPI;
   clanVersusPoints: number;
   tag: string;

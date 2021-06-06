@@ -1,12 +1,12 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APILocation } from "../ClashInterface";
 import { ENDPOINTS } from "../Constants";
-import ClanRanking from "./ClanRanking";
-import ClanVersusRanking from "./ClanVersusRanking";
-import PlayerRanking from "./PlayerRanking";
-import PlayerVersusRanking from "./PlayerVersusRanking";
+import { ClanRanking } from "./ClanRanking";
+import { ClanVersusRanking } from "./ClanVersusRanking";
+import { PlayerRanking } from "./PlayerRanking";
+import { PlayerVersusRanking } from "./PlayerVersusRanking";
 
-export default class Location {
+export class Location {
   private api!: ClashAPI;
   localizedName?: string;
   id: number;

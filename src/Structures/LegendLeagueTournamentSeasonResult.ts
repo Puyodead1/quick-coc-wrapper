@@ -1,7 +1,7 @@
-import ClashAPI from "../ClashAPI";
+import { ClashAPI } from "../ClashAPI";
 import { APILegendLeagueTorunamentSeasonResult } from "../ClashInterface";
 
-export default class LegendLeagueTournamentSeasonResult {
+export class LegendLeagueTournamentSeasonResult {
   private api!: ClashAPI;
   trophies: number;
   id: string;

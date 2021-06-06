@@ -1,4 +1,5 @@
 import { ClanSearchOptions } from "./ClashInterface";
+
 export const BASE_URL = "https://api.clashofclans.com/v1";
 export const ENDPOINTS = {
   /**
@@ -282,4 +283,6 @@ export const ENDPOINTS = {
    * Get information about the current gold pass season.
    */
   GOLDPASS_CURRENT_SEASON: `/goldpass/seasons/current`,
+  LABELS_PLAYERS: `/labels/players`,
+  LABELS_CLANS: `/labels/clans`,
 };
