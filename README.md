@@ -1,6 +1,6 @@
 # quick-coc-wrapper
-Simple clash of clans API wrapper
 
+Simple clash of clans API wrapper
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/designed-in-ms-paint.svg)](https://forthebadge.com)
@@ -13,5 +13,18 @@ Simple clash of clans API wrapper
 
 [![Discord Banner 2](https://discordapp.com/api/guilds/589200717277954093/widget.png?style=banner2)](https://discord.gg/tMzrSxQ)
 
-keklolrol
-# TODO
+# Information
+
+- API Docs: https://puyodead1.github.io/quick-coc-wrapper
+- NPM Package: https://www.npmjs.com/package/quick-coc-wrapper
+
+# Example Usage
+
+```ts
+import { ClashAPI } from "quick-coc-wrapper";
+
+const api = new ClashAPI("<clash of clans api token>");
+api.fetchLeagues().then((leagues) => {
+  console.log(leagues);
+});
+```
