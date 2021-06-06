@@ -2,7 +2,7 @@ import ClashAPI from "../ClashAPI";
 import { CC_TOKEN, LT_TOKEN, BB_TOKEN } from "./config";
 
 const api = new ClashAPI(
-  process.env.USERDOMAIN === "DESKTOP-B2O53RK" ? BB_TOKEN : CC_TOKEN
+  process.env.USERDOMAIN === "DESKTOP-B2O53RK" ? LT_TOKEN : CC_TOKEN
 );
 
 const CLAN_TAG = "#2LYY8R9RY";
@@ -28,13 +28,12 @@ const PLAYER_PROFILE_TAG = "#90GGPGLRV";
   //   .catch(console.error);
 
   api
-    .fetchWarLeagues()
-    .then((warLeagues) => {
-      const league = warLeagues[Math.floor(Math.random() * warLeagues.length)];
-      api
-        .fetchWarLeague(league.id.toString())
-        .then((warLeague) => {
-          console.log(warLeague);
+    .fetchLocation(32000098)
+    .then((location) => {
+      location
+        .fetchClanVersusRankings()
+        .then((rankings) => {
+          console.log(rankings);
         })
         .catch(console.error);
     })

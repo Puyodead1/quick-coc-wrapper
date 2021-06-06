@@ -24,12 +24,15 @@ export default class {
       this.api
         .get(ENDPOINTS.CLANS(searchOptions))
         .then((apiClans: any) => {
-          const clans: Clan[] = [];
-          for (const clan of apiClans.items) {
-            clans.push(new Clan(this.api, clan));
-          }
+          if (!apiClans.error) {
+            const clans: Clan[] = [];
+            for (const clan of apiClans.body.items) {
+              clans.push(new Clan(this.api, clan));
+            }
 
-          resolve(clans);
+            resolve(clans);
+          }
+          reject(apiClans);
         })
         .catch(reject);
     });
@@ -44,7 +47,12 @@ export default class {
     return new Promise((resolve, reject) => {
       this.api
         .get(ENDPOINTS.CLAN(clanTag))
-        .then((apiClan: any) => resolve(new Clan(this.api, apiClan)))
+        .then((apiClan: any) => {
+          if (!apiClan.error) {
+            resolve(new Clan(this.api, apiClan.body));
+          }
+          reject(apiClan);
+        })
         .catch(reject);
     });
   }

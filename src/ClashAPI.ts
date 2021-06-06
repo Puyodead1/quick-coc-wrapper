@@ -2,6 +2,7 @@ import c from "centra";
 import Clans from "./Clans";
 import { BASE_URL, ENDPOINTS } from "./Constants";
 import League from "./Structures/League";
+import Location from "./Structures/Location";
 import Player from "./Structures/Player";
 import WarLeague from "./Structures/WarLeague";
 
@@ -27,26 +28,32 @@ export default class {
       req
         .then(async (res) => {
           if (res.statusCode === 200) {
-            resolve(await res.json());
-          } else if (
-            res.statusCode === 400 ||
-            res.statusCode === 403 ||
-            res.statusCode == 404 ||
-            res.statusCode === 429 ||
-            res.statusCode === 500 ||
-            res.statusCode === 503
-          ) {
-            reject({
-              error: true,
-              code: res.statusCode,
-              message: await res.json(),
-            });
+            try {
+              resolve({
+                error: false,
+                body: await res.json(),
+              });
+            } catch {
+              resolve({
+                error: false,
+                body: await res.text(),
+              });
+            }
           } else {
-            reject({
-              error: true,
-              code: res.statusCode,
-              message: await res.text(),
-            });
+            // non-200 status, could include anything from 3xx to 5xx
+            try {
+              reject({
+                error: true,
+                code: res.statusCode,
+                body: await res.json(),
+              });
+            } catch {
+              reject({
+                error: true,
+                code: res.statusCode,
+                body: await res.text(),
+              });
+            }
           }
         })
         .catch(reject);
@@ -74,26 +81,32 @@ export default class {
       req
         .then(async (res) => {
           if (res.statusCode === 200) {
-            resolve(await res.json());
-          } else if (
-            res.statusCode === 400 ||
-            res.statusCode === 403 ||
-            res.statusCode == 404 ||
-            res.statusCode === 429 ||
-            res.statusCode === 500 ||
-            res.statusCode === 503
-          ) {
-            reject({
-              error: true,
-              code: res.statusCode,
-              message: await res.json(),
-            });
+            try {
+              resolve({
+                error: false,
+                body: await res.json(),
+              });
+            } catch {
+              resolve({
+                error: false,
+                body: await res.text(),
+              });
+            }
           } else {
-            reject({
-              error: true,
-              code: res.statusCode,
-              message: await res.text(),
-            });
+            // non-200 status, could include anything from 3xx to 5xx
+            try {
+              reject({
+                error: true,
+                code: res.statusCode,
+                body: await res.json(),
+              });
+            } catch {
+              reject({
+                error: true,
+                code: res.statusCode,
+                body: await res.text(),
+              });
+            }
           }
         })
         .catch(reject);
@@ -109,7 +122,9 @@ export default class {
     return new Promise((resolve, reject) => {
       this.get(ENDPOINTS.PLAYER(playerTag))
         .then((apiPlayer: any) => {
-          resolve(new Player(this, apiPlayer));
+          if (!apiPlayer.error) resolve(new Player(this, apiPlayer.body));
+
+          reject(apiPlayer);
         })
         .catch(reject);
     });
@@ -117,9 +132,9 @@ export default class {
 
   /**
    * List leagues
-   * @param limit
-   * @param after
-   * @param before
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
    * @returns {League[]}
    */
   fetchLeagues(
@@ -130,11 +145,14 @@ export default class {
     return new Promise((resolve, reject) => {
       this.get(ENDPOINTS.LEAGUES(limit, after, before))
         .then((apiLeagueList: any) => {
-          const leagues = [];
-          for (const apiLeague of apiLeagueList.items) {
-            leagues.push(new League(this, apiLeague));
+          if (!apiLeagueList.error) {
+            const leagues = [];
+            for (const apiLeague of apiLeagueList.body.items) {
+              leagues.push(new League(this, apiLeague));
+            }
+            resolve(leagues);
           }
-          resolve(leagues);
+          reject(apiLeagueList);
         })
         .catch(reject);
     });
@@ -145,11 +163,13 @@ export default class {
    * @param leagueId Identifier of the league
    * @returns {League}
    */
-  fetchLeague(leagueId: string): Promise<League> {
+  fetchLeague(leagueId: number): Promise<League> {
     return new Promise((resolve, reject) => {
-      this.get(ENDPOINTS.LEAGUE(leagueId))
+      this.get(ENDPOINTS.LEAGUE(leagueId.toString()))
         .then((apiLeague: any) => {
-          resolve(new League(this, apiLeague));
+          if (!apiLeague.error) resolve(new League(this, apiLeague));
+
+          reject(apiLeague);
         })
         .catch(reject);
     });
@@ -157,9 +177,9 @@ export default class {
 
   /**
    * List war leagues
-   * @param limit
-   * @param after
-   * @param before
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
    * @returns {WarLeague[]}
    */
   fetchWarLeagues(
@@ -170,12 +190,15 @@ export default class {
     return new Promise((resolve, reject) => {
       this.get(ENDPOINTS.WARLEAGUES(limit, after, before))
         .then((apiWarLeagues: any) => {
-          const warLeagues = [];
-          for (const apiWarLeague of apiWarLeagues.items) {
-            warLeagues.push(new WarLeague(this, apiWarLeague));
-          }
+          if (!apiWarLeagues.error) {
+            const warLeagues = [];
+            for (const apiWarLeague of apiWarLeagues.body.items) {
+              warLeagues.push(new WarLeague(this, apiWarLeague));
+            }
 
-          resolve(warLeagues);
+            resolve(warLeagues);
+          }
+          reject(apiWarLeagues);
         })
         .catch(reject);
     });
@@ -186,11 +209,57 @@ export default class {
    * @param leagueId Identifier of the league
    * @returns {League}
    */
-  fetchWarLeague(leagueId: string): Promise<WarLeague> {
+  fetchWarLeague(leagueId: number): Promise<WarLeague> {
     return new Promise((resolve, reject) => {
-      this.get(ENDPOINTS.WARLEAGUE(leagueId))
+      this.get(ENDPOINTS.WARLEAGUE(leagueId.toString()))
         .then((apiWarLeague: any) => {
-          resolve(new WarLeague(this, apiWarLeague));
+          if (!apiWarLeague.error)
+            resolve(new WarLeague(this, apiWarLeague.body));
+          reject(apiWarLeague);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * List locations
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @returns {Location[]}
+   */
+  fetchLocations(
+    limit?: number,
+    after?: string,
+    before?: string
+  ): Promise<Location[]> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.LOCATIONS(limit, after, before))
+        .then((apiLocations: any) => {
+          if (!apiLocations.error) {
+            const locations = [];
+            for (const apiLocation of apiLocations.body.items) {
+              locations.push(new Location(this, apiLocation));
+            }
+            resolve(locations);
+          }
+          reject(apiLocations);
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Get information about specific location
+   * @param locationId Identifier of the location to retrieve.
+   * @returns {Location}
+   */
+  fetchLocation(locationId: number): Promise<Location> {
+    return new Promise((resolve, reject) => {
+      this.get(ENDPOINTS.LOCATION(locationId.toString()))
+        .then((apiLocation: any) => {
+          if (!apiLocation.error) resolve(new Location(this, apiLocation.body));
+          reject(apiLocation);
         })
         .catch(reject);
     });

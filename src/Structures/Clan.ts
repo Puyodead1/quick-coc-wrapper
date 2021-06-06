@@ -87,12 +87,15 @@ export default class Clan {
       this.api
         .get(ENDPOINTS.CLAN_WARLOG(this.tag))
         .then((apiWarLog: any) => {
-          const warLog: ClanWarLogEntry[] = [];
-          for (const log of apiWarLog.items) {
-            warLog.push(new ClanWarLogEntry(this.api, log));
-          }
+          if (!apiWarLog.error) {
+            const warLog: ClanWarLogEntry[] = [];
+            for (const log of apiWarLog.items) {
+              warLog.push(new ClanWarLogEntry(this.api, log));
+            }
 
-          resolve(warLog);
+            resolve(warLog);
+          }
+          reject(apiWarLog);
         })
         .catch(reject);
     });
@@ -107,11 +110,14 @@ export default class Clan {
       this.api
         .get(ENDPOINTS.CLAN_MEMBERS(this.tag))
         .then((apiClanMembers: any) => {
-          for (const member of apiClanMembers) {
-            const m = new ClanMember(this.api, member);
-            this.memberList.set(m.tag, m);
+          if (!apiClanMembers.error) {
+            for (const member of apiClanMembers.body) {
+              const m = new ClanMember(this.api, member);
+              this.memberList.set(m.tag, m);
+            }
+            resolve(this.memberList);
           }
-          resolve(this.memberList);
+          reject(apiClanMembers);
         })
         .catch(reject);
     });
@@ -126,7 +132,8 @@ export default class Clan {
       this.api
         .get(ENDPOINTS.CLAN_CURRENT_WAR(this.tag))
         .then((apiWar: any) => {
-          resolve(new ClanWar(this.api, apiWar));
+          if (!apiWar.error) resolve(new ClanWar(this.api, apiWar.body));
+          reject(apiWar);
         })
         .catch(reject);
     });
@@ -141,7 +148,9 @@ export default class Clan {
       this.api
         .get(ENDPOINTS.CLAN_CURRENT_WARLEAGUE(this.tag))
         .then((apiWarLeagueGroup: any) => {
-          resolve(new ClanWarLeagueGroup(this.api, apiWarLeagueGroup));
+          if (!apiWarLeagueGroup.error)
+            resolve(new ClanWarLeagueGroup(this.api, apiWarLeagueGroup));
+          reject(apiWarLeagueGroup);
         })
         .catch(reject);
     });
@@ -157,7 +166,9 @@ export default class Clan {
       this.api
         .get(ENDPOINTS.CLAN_WARLEAGUES_WAR(warTag))
         .then((apiWarLeagueWar: any) => {
-          resolve(new ClanWarLeagueGroup(this.api, apiWarLeagueWar));
+          if (!apiWarLeagueWar.error)
+            resolve(new ClanWarLeagueGroup(this.api, apiWarLeagueWar.body));
+          reject(apiWarLeagueWar);
         })
         .catch(reject);
     });

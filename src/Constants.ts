@@ -127,9 +127,9 @@ export const ENDPOINTS = {
   /**
    * Get league seasons. Note that league season information is available only for Legend League.
    * @param leagueId Identifier of the league
-   * @param limit
-   * @param after
-   * @param before
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
    * @returns string
    */
   LEAGUE_SEASONS: (
@@ -145,10 +145,18 @@ export const ENDPOINTS = {
     return `/leagues${url.search}`;
   },
   /**
+   * Get league season rankings. Note that league season information is available only for Legend League.
+   * @param leagueId Identifier of the league.
+   * @param seasonId Identifier of the season.
+   * @returns string
+   */
+  LEAGUE_SEASON: (leagueId: string, seasonId: string) =>
+    `/leagues/${leagueId}/seasons/${seasonId}`,
+  /**
    * List war leagues
-   * @param limit
-   * @param after
-   * @param before
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
    * @returns string
    */
   WARLEAGUES: (limit?: number, after?: string, before?: string) => {
@@ -157,11 +165,117 @@ export const ENDPOINTS = {
     if (after) url.searchParams.append("after", after);
     if (before) url.searchParams.append("before", before);
     return `/warleagues${url.search}`;
-  }
+  },
   /**
    * Get war league information
    * @param leagueId Identifier of the league
    * @returns string
-   */,
+   */
   WARLEAGUE: (leagueId: string) => `/warleagues/${leagueId}`,
+  /**
+   * Get information about specific location
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @returns string
+   */
+  LOCATIONS: (limit?: number, after?: string, before?: string) => {
+    const url = new URL(`/locations`, BASE_URL);
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/locations${url.search}`;
+  },
+  /**
+   * Get information about specific location
+   * @param locationId Identifier of the location to retrieve.
+   * @returns string
+   */
+  LOCATION: (locationId: string) => `/locations/${locationId}`,
+  /**
+   * Get clan rankings for a specific location
+   * @param locationId Identifier of the location to retrieve.
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @returns
+   */
+  LOCATION_RANKINGS_CLANS: (
+    locationId: string,
+    limit?: number,
+    after?: string,
+    before?: string
+  ) => {
+    const url = new URL(`/locations/${locationId}/rankings/clans`, BASE_URL);
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/locations/${locationId}/rankings/clans${url.search}`;
+  },
+  /**
+   * Get player rankings for a specific location
+   * @param locationId Identifier of the location to retrieve.
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @returns
+   */
+  LOCATION_RANKINGS_PLAYERS: (
+    locationId: string,
+    limit?: number,
+    after?: string,
+    before?: string
+  ) => {
+    const url = new URL(`/locations/${locationId}/rankings/players`, BASE_URL);
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/locations/${locationId}/rankings/players${url.search}`;
+  },
+  /**
+   * Get clan versus rankings for a specific location
+   * @param locationId Identifier of the location to retrieve.
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @returns
+   */
+  LOCATION_RANKINGS_CLANVERSUS: (
+    locationId: string,
+    limit?: number,
+    after?: string,
+    before?: string
+  ) => {
+    const url = new URL(
+      `/locations/${locationId}/rankings/clans-versus`,
+      BASE_URL
+    );
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/locations/${locationId}/rankings/clans-versus${url.search}`;
+  },
+  /**
+   * Get player versus rankings for a specific location
+   * @param locationId Identifier of the location to retrieve.
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @returns
+   */
+  LOCATION_RANKINGS_PLAYERVERSUS: (
+    locationId: string,
+    limit?: number,
+    after?: string,
+    before?: string
+  ) => {
+    const url = new URL(
+      `/locations/${locationId}/rankings/players-versus`,
+      BASE_URL
+    );
+    if (limit) url.searchParams.append("limit", limit.toString());
+    if (after) url.searchParams.append("after", after);
+    if (before) url.searchParams.append("before", before);
+    return `/locations/${locationId}/rankings/players-versus${url.search}`;
+  },
 };

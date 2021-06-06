@@ -53,7 +53,7 @@ export interface APILabel {
 }
 
 export interface APILocation {
-  localizedName: string;
+  localizedName?: string;
   id: number;
   name: string;
   isCountry: boolean;
@@ -265,4 +265,70 @@ export interface APIPlayerVerifyTokenResponse {
 
 export interface APILeagueSeason {
   id: string;
+}
+
+export interface APIClanRanking {
+  clanLevel: number;
+  clanPoints: number;
+  location: APILocation;
+  members: number;
+  tag: string;
+  name: string;
+  rank: number;
+  previousRank: number;
+  badgeUrls: {
+    small: string;
+    large: string;
+    medium: string;
+  };
+}
+
+export interface APIPlayerRankingClan {
+  tag: string;
+  name: string;
+  badgeUrls: {
+    small: string;
+    large: string;
+    medium: string;
+  };
+}
+
+export interface APIPlayerRanking {
+  league: APILeague;
+  clan: APIPlayerRankingClan;
+  attackWins: number;
+  defenseWins: number;
+  tag: string;
+  name: string;
+  expLevel: number;
+  rank: number;
+  previousRank: number;
+  trophies: number;
+}
+
+export interface APIClanVersusRanking {
+  tag: string;
+  name: string;
+  location: APILocation;
+  badgeUrls: {
+    small: string;
+    large: string;
+    medium: string;
+  };
+  clanLevel: number;
+  members: number;
+  rank: number;
+  previousRank: number;
+  clanVersusPoints: number;
+}
+
+export interface APIPlayerVersusRanking {
+  clan: APIPlayerRankingClan;
+  versusBattleWins: number;
+  tag: string;
+  name: string;
+  expLevel: number;
+  rank: number;
+  previousRank: number;
+  versusTrophies: number;
 }

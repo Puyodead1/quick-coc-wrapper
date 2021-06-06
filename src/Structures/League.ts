@@ -34,22 +34,32 @@ export default class League {
       this.api
         .get(ENDPOINTS.LEAGUE_SEASONS(this.id.toString(), limit, after, before))
         .then((apiLeagueSeasons: any) => {
-          const leagueSeasons = [];
-          for (const apiLeagueSeason of apiLeagueSeasons.items) {
-            leagueSeasons.push(new LeagueSeason(this.api, apiLeagueSeason));
+          if (!apiLeagueSeasons.error) {
+            const leagueSeasons = [];
+            for (const apiLeagueSeason of apiLeagueSeasons.body.items) {
+              leagueSeasons.push(new LeagueSeason(this.api, apiLeagueSeason));
+            }
+            resolve(leagueSeasons);
           }
-          resolve(leagueSeasons);
+          reject(apiLeagueSeasons);
         })
         .catch(reject);
     });
   }
 
-  fetchSeason() {
+  /**
+   * Get league season rankings. Note that league season information is available only for Legend League.
+   * @param seasonId Identifier of the season.
+   * @returns {LeagueSeason}
+   */
+  fetchSeason(seasonId: string): Promise<LeagueSeason> {
     return new Promise((resolve, reject) => {
       this.api
-        .get(ENDPOINTS.LEAGUE_SEASONS(this.id.toString()))
-        .then((apiLeagueSeasons: any) => {
-          //
+        .get(ENDPOINTS.LEAGUE_SEASON(this.id.toString(), seasonId))
+        .then((apiLeagueSeason: any) => {
+          if (!apiLeagueSeason.error)
+            resolve(new LeagueSeason(this.api, apiLeagueSeason));
+          reject(apiLeagueSeason);
         });
     });
   }

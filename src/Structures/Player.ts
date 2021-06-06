@@ -109,7 +109,9 @@ export default class Player {
           token,
         })
         .then((playerTokenVerifyResponse: any) => {
-          resolve(playerTokenVerifyResponse);
+          if (!playerTokenVerifyResponse.error)
+            resolve(playerTokenVerifyResponse.body);
+          reject(playerTokenVerifyResponse);
         })
         .catch(reject);
     });
