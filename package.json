@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build:ts": "npm run clean && tsc",
-    "build:docs": "typedoc src/index.ts"
+    "build:docs": "typedoc src/index.ts --theme ./node_modules/typedoc-dark-theme/bin/default/"
   },
   "keywords": [
     "clash-of-clans",
@@ -39,6 +39,7 @@
     "chai-http": "^4.3.0",
     "mocha": "^8.4.0",
     "rimraf": "^3.0.2",
-    "typedoc": "^0.20.36"
+    "typedoc": "^0.20.36",
+    "typedoc-dark-theme": "^0.0.11"
   }
 }

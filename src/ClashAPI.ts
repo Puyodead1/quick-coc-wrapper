@@ -25,6 +25,7 @@ export class ClashAPI {
 
   /**
    * internal method
+   * @internal
    * @param endpoint endpoint
    * @returns
    */
@@ -90,6 +91,7 @@ export class ClashAPI {
 
   /**
    * internal method
+   * @internal
    * @param endpoint endpoint
    * @param data body data
    * @param sendAs contentType (defaults to json)
